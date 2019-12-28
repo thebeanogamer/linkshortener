@@ -1,0 +1,85 @@
+service: linkshortener
+
+provider:
+  name: aws
+  runtime: python3.8
+  region: eu-west-2
+  environment:
+    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+  iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+          - dynamodb:Scan
+          - dynamodb:GetItem
+          - dynamodb:PutItem
+          - dynamodb:UpdateItem
+          - dynamodb:DeleteItem
+        Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+  tracing:
+    apiGateway: true
+    lambda: true
+
+functions:
+  fallback:
+    handler: linkshortener/shortener.fallback
+    events:
+      - http:
+          path: /
+          method: get
+  create:
+    handler: linkshortener/shortener.create
+    events:
+      - http:
+          path: /manage
+          method: put
+  delete:
+    handler: linkshortener/shortener.delete
+    events:
+      - http:
+          path: /manage
+          method: delete
+  shortener:
+    handler: linkshortener/shortener.shortener
+    events:
+      - http:
+          path: /{id}
+          method: get
+
+resources:
+  Resources:
+    TodosDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: code
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: code
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
+
+plugins:
+  - serverless-offline
+  - serverless-dynamodb-local
+
+custom:
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      heapInitial: 200m
+      heapMax: 1g
+      migrate: true
+      seed: true
+      convertEmptyValues: true
+
+  

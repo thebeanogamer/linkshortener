@@ -1,0 +1,20 @@
+{
+  "name": "linkshortener",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thebeanogamer/linkshortener.git"
+  },
+  "author": "Daniel Milnes <thebeanogamer@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thebeanogamer/linkshortener/issues"
+  },
+  "homepage": "https://github.com/thebeanogamer/linkshortener#readme",
+  "devDependencies": {
+    "serverless": "^1.60.4",
+    "serverless-dynamodb-local": "^0.2.38",
+    "serverless-offline": "^5.12.1"
+  }
+}
