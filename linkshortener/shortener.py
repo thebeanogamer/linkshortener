@@ -4,6 +4,7 @@ import boto3
 import string
 from boto3.dynamodb.conditions import Key, Attr
 import botocore
+import decimal
 
 db = boto3.resource(
     "dynamodb", endpoint_url="http://localhost:8000", region_name="eu-west-2"
@@ -23,6 +24,11 @@ def redirect(url):
 def shortener(event, context):
     try:
         url = db.get_item(Key={"code": event["pathParameters"]["id"]})["Item"]["url"]
+        db.update_item(
+            Key={"code": event["pathParameters"]["id"]},
+            UpdateExpression="set uses = uses + :val",
+            ExpressionAttributeValues={":val": decimal.Decimal(1)},
+        )
     except KeyError:
         return fallback()
     return redirect(url)
