@@ -8,8 +8,6 @@ jobs:
 - job: lint
   displayName: Lint
 
-  continueOnError: true
-
   pool:
     vmImage: Ubuntu 18.04
 
@@ -31,9 +29,6 @@ jobs:
 
   - script: python -m flake8 .
     displayName: Run linter
-
-  - script: cat flake8.xml
-    displayName: Read Flake8 output
 
   - task: PublishTestResults@2
     condition: succeededOrFailed()
