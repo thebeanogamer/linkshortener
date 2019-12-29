@@ -1,3 +1,5 @@
+org: thebeanogamer
+app: linkshortener
 service: linkshortener
 
 provider:
