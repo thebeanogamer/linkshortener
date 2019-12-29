@@ -1,10 +1,10 @@
+import decimal
 import json
 import os
-import boto3
 import string
-from boto3.dynamodb.conditions import Attr, Key
+
+import boto3
 import botocore
-import decimal
 
 db = boto3.resource(
     "dynamodb", endpoint_url="http://localhost:8000", region_name="eu-west-2"
@@ -22,7 +22,7 @@ class DecimalEncoder(json.JSONEncoder):
 
 
 def sanitize(url):
-    # This function sanitizes URLs so they are compliant with RFC3986, it is not a security control and should not be used as such
+    # This function sanitizes URLs so they are compliant with RFC3986
     return "".join([i for i in url if i in string.ascii_letters + string.digits])
 
 
@@ -61,9 +61,9 @@ def create(event, context):
 
 
 def view(event, context):
-    if event["queryStringParameters"] != None and event["queryStringParameters"].get(
-        "code"
-    ) not in (None, ""):
+    if event["queryStringParameters"] is not None and event[
+        "queryStringParameters"
+    ].get("code") not in (None, ""):
         try:
             codes = db.get_item(
                 Key={"code": sanitize(event["queryStringParameters"]["code"])}
