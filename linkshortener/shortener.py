@@ -21,7 +21,7 @@ class DecimalEncoder(json.JSONEncoder):
 
 
 def sanitize(url):
-    # This function sanitizes URLs so they are compliant with RFC3986, it is not a security control and should not be used as such
+    # This function sanitizes URLs so they are compliant with RFC3986
     return "".join([i for i in url if i in string.ascii_letters + string.digits])
 
 
