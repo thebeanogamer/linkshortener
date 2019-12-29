@@ -2,7 +2,7 @@ import json
 import os
 import boto3
 import string
-from boto3.dynamodb.conditions import Key, Attr
+from boto3.dynamodb.conditions import Attr, Key
 import botocore
 import decimal
 
@@ -40,7 +40,7 @@ def shortener(event, context):
             ExpressionAttributeValues={":val": decimal.Decimal(1)},
         )
     except KeyError:
-        return fallback()
+        return fallback(event, context)
     return redirect(url)
 
 
