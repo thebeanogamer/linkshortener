@@ -20,10 +20,5 @@ jobs:
       workingDir: '$(System.DefaultWorkingDirectory)'
       verbose: false
 
-  - script: |
-      mkdir ~/.aws
-      echo $AWSKEYS | base64 -d > ~/.aws/credentials
-    displayName: 'Setup Environment'
-
   - script: '$(System.DefaultWorkingDirectory)/node_modules/.bin/serverless deploy --conceal --stage prod'
     displayName: 'Deploy with Serverless Framework'
