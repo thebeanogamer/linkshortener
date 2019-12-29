@@ -11,6 +11,16 @@ db = boto3.resource(
 ).Table(os.environ["DYNAMODB_TABLE"])
 
 
+class DecimalEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, decimal.Decimal):
+            if o % 1 > 0:
+                return float(o)
+            else:
+                return int(o)
+        return super(DecimalEncoder, self).default(o)
+
+
 def sanitize(url):
     # This function sanitizes URLs so they are compliant with RFC3986, it is not a security control and should not be used as such
     return "".join([i for i in url if i in string.ascii_letters + string.digits])
@@ -48,6 +58,21 @@ def create(event, context):
         if e.response["Error"]["Code"] == "ConditionalCheckFailedException":
             return {"statusCode": 409}
     return {"statusCode": 200}
+
+
+def view(event, context):
+    if event["queryStringParameters"] != None and event["queryStringParameters"].get(
+        "code"
+    ) not in (None, ""):
+        try:
+            codes = db.get_item(
+                Key={"code": sanitize(event["queryStringParameters"]["code"])}
+            )["Item"]
+        except KeyError:
+            return {"statusCode": 404, "body": json.dumps({"error": "Code not found"})}
+    else:
+        codes = db.scan()["Items"]
+    return {"statusCode": 200, "body": json.dumps(codes, cls=DecimalEncoder)}
 
 
 def delete(event, context):

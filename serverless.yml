@@ -33,6 +33,12 @@ functions:
       - http:
           path: /manage
           method: put
+  view:
+    handler: linkshortener/shortener.view
+    events:
+      - http:
+          path: /manage
+          method: get
   delete:
     handler: linkshortener/shortener.delete
     events:
