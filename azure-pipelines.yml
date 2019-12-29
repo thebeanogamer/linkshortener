@@ -8,6 +8,8 @@ jobs:
 - job: lint
   displayName: Lint
 
+  continueOnError: true
+
   pool:
     vmImage: Ubuntu 18.04
 
