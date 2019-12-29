@@ -1,7 +1,7 @@
+import decimal
 import json
 import os
 import string
-import decimal
 
 import boto3
 import botocore
