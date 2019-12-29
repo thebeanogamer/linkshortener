@@ -4,6 +4,8 @@ provider:
   name: aws
   runtime: python3.8
   region: eu-west-2
+  apikeys:
+    - apikey
   environment:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
   iamRoleStatements:
@@ -33,18 +35,21 @@ functions:
       - http:
           path: /manage
           method: put
+          private: true
   view:
     handler: linkshortener/shortener.view
     events:
       - http:
           path: /manage
           method: get
+          private: true
   delete:
     handler: linkshortener/shortener.delete
     events:
       - http:
           path: /manage
           method: delete
+          private: true
   shortener:
     handler: linkshortener/shortener.shortener
     events:
