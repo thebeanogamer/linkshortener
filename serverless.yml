@@ -94,5 +94,10 @@ custom:
       migrate: true
       seed: true
       convertEmptyValues: true
+  customDomain:
+    domainName: ${env:DOMAIN}
+    basePath: ""
+    stage: ${self:provider.stage}
+    createRoute53Record: true
 
   
