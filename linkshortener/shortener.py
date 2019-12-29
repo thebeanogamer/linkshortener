@@ -1,9 +1,10 @@
 import json
 import os
-import boto3
 import string
-import botocore
 import decimal
+
+import boto3
+import botocore
 
 db = boto3.resource(
     "dynamodb", endpoint_url="http://localhost:8000", region_name="eu-west-2"
