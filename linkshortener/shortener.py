@@ -60,9 +60,9 @@ def create(event, context):
 
 
 def view(event, context):
-    if event["queryStringParameters"] != None and event["queryStringParameters"].get(
-        "code"
-    ) not in (None, ""):
+    if event["queryStringParameters"] is not None and event[
+        "queryStringParameters"
+    ].get("code") not in (None, ""):
         try:
             codes = db.get_item(
                 Key={"code": sanitize(event["queryStringParameters"]["code"])}
