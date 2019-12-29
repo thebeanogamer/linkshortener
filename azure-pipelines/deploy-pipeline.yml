@@ -1,6 +1,5 @@
 trigger:
 - master
-- releases/*
 
 jobs:
 - job: Deploy
