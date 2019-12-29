@@ -20,5 +20,9 @@ jobs:
       workingDir: '$(System.DefaultWorkingDirectory)'
       verbose: false
 
+  - script: echo $AWS_ACCESS_KEY_ID
+
+  - script: echo $AWS_SECRET_ACCESS_KEY
+
   - script: '$(System.DefaultWorkingDirectory)/node_modules/.bin/serverless deploy --conceal --stage prod'
     displayName: 'Deploy with Serverless Framework'
