@@ -30,6 +30,9 @@ jobs:
   - script: python -m flake8 .
     displayName: Run linter
 
+  - script: cat flake8.xml
+    displayName: Read Flake8 output
+
   - task: PublishTestResults@2
     condition: succeededOrFailed()
     inputs:
