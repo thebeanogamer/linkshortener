@@ -25,5 +25,5 @@ jobs:
       echo $AWSKEYS | base64 -d > ~/.aws/credentials
     displayName: 'Setup Environment'
 
-  - script: 'serverless deploy --conceal --stage prod'
+  - script: '$(System.DefaultWorkingDirectory)/node_modules/.bin/serverless deploy --conceal --stage prod'
     displayName: 'Deploy with Serverless Framework'
