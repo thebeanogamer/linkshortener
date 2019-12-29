@@ -22,7 +22,7 @@ jobs:
     displayName: Install Poetry
 
   - script: $HOME/.poetry/bin/poetry config virtualenvs.create false
-    displayName: Disalbe Poetry VirtualEnvs
+    displayName: Disable Poetry VirtualEnvs
 
   - script: $HOME/.poetry/bin/poetry install
     displayName: Install project using Poetry
