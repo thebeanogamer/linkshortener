@@ -24,7 +24,7 @@ jobs:
   - script: $HOME/.poetry/bin/poetry config virtualenvs.create false
     displayName: Disable Poetry VirtualEnvs
 
-  - script: $HOME/.poetry/bin/poetry install
+  - script: $HOME/.poetry/bin/poetry install --no-interaction --no-ansi
     displayName: Install project using Poetry
 
   - script: python -m flake8 .
