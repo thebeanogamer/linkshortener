@@ -17,7 +17,7 @@ jobs:
   - task: Npm@1
     displayName: 'Install Node Packages'
     inputs:
-      workingDir: '$(System.DefaultWorkingDirectory)/_thebeanogamer_linkshortener'
+      workingDir: '$(System.DefaultWorkingDirectory)'
       verbose: false
 
   - script: |
