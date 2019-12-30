@@ -61,7 +61,7 @@ functions:
 
 resources:
   Resources:
-    TodosDynamoDbTable:
+    ShortenerDynamoDbTable:
       Type: 'AWS::DynamoDB::Table'
       DeletionPolicy: Retain
       Properties:
