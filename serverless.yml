@@ -98,7 +98,6 @@ custom:
   customDomain:
     domainName: ${env:DOMAIN}
     basePath: ""
-    stage: ${self:provider.stage}
     createRoute53Record: true
 
   
