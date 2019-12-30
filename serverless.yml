@@ -81,6 +81,7 @@ resources:
 plugins:
   - serverless-offline
   - serverless-dynamodb-local
+  - serverless-domain-manager
 
 custom:
   dynamodb:
