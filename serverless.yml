@@ -7,7 +7,7 @@ provider:
   runtime: python3.8
   region: eu-west-2
   apiKeys:
-    - ${opt:stage}-apikey
+    - ${opt:stage}-adminkey
   environment:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
   iamRoleStatements:
