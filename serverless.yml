@@ -27,12 +27,6 @@ provider:
     restApi: true
 
 functions:
-  fallback:
-    handler: linkshortener/shortener.fallback
-    events:
-      - http:
-          path: /
-          method: get
   create:
     handler: linkshortener/shortener.create
     events:
