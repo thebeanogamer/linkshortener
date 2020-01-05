@@ -7,12 +7,16 @@ import boto3
 import botocore
 from botocore.config import Config
 
-db = boto3.resource(
-    "dynamodb",
-    endpoint_url="http://localhost:8000",
-    region_name="eu-west-2",
-    config=Config(connect_timeout=5, retries={"max_attempts": 3}),
-).Table(os.environ["DYNAMODB_TABLE"])
+
+def connect(event):
+    return boto3.resource(
+        "dynamodb",
+        endpoint_url="http://localhost:8000"
+        if event["requestContext"]["stage"] == "dev"
+        else None,
+        region_name="eu-west-2",
+        config=Config(connect_timeout=5, retries={"max_attempts": 3}),
+    ).Table(os.environ["DYNAMODB_TABLE"])
 
 
 class DecimalEncoder(json.JSONEncoder):
@@ -36,6 +40,7 @@ def redirect(url):
 
 
 def shortener(event, context):
+    db = connect(event)
     try:
         url = db.get_item(Key={"code": event["pathParameters"]["id"]})["Item"]["url"]
         db.update_item(
@@ -49,6 +54,7 @@ def shortener(event, context):
 
 
 def create(event, context):
+    db = connect(event)
     try:
         db.put_item(
             Item={
@@ -65,6 +71,7 @@ def create(event, context):
 
 
 def view(event, context):
+    db = connect(event)
     if event["queryStringParameters"] is not None and event[
         "queryStringParameters"
     ].get("code") not in (None, ""):
@@ -80,6 +87,7 @@ def view(event, context):
 
 
 def delete(event, context):
+    db = connect(event)
     try:
         db.delete_item(
             Key={"code": sanitize(json.loads(event["body"])["code"])},
