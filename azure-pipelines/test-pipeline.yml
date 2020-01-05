@@ -4,6 +4,9 @@ pr:
     include:
     - '*'
 
+trigger:
+  - '*'
+
 jobs:
 - job: lint
   displayName: Lint
