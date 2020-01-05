@@ -7,7 +7,11 @@ import boto3
 import botocore
 
 db = boto3.resource(
-    "dynamodb", endpoint_url="http://localhost:8000", region_name="eu-west-2"
+    "dynamodb",
+    endpoint_url="http://localhost:8000",
+    region_name="eu-west-2",
+    connect_timeout=5,
+    retries={"max_attempts": 3},
 ).Table(os.environ["DYNAMODB_TABLE"])
 
 
