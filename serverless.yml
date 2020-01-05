@@ -1,11 +1,15 @@
+org: thebeanogamer
+app: linkshortener
 service: linkshortener
 
 provider:
   name: aws
   runtime: python3.8
   region: eu-west-2
-  apikeys:
-    - apikey
+  memorySize: 128
+  timeout: 20
+  apiKeys:
+    - ${opt:stage}-adminkey
   environment:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
   iamRoleStatements:
@@ -21,6 +25,8 @@ provider:
   tracing:
     apiGateway: true
     lambda: true
+  logs:
+    restApi: true
 
 functions:
   fallback:
@@ -59,7 +65,7 @@ functions:
 
 resources:
   Resources:
-    TodosDynamoDbTable:
+    ShortenerDynamoDbTable:
       Type: 'AWS::DynamoDB::Table'
       DeletionPolicy: Retain
       Properties:
@@ -79,6 +85,7 @@ resources:
 plugins:
   - serverless-offline
   - serverless-dynamodb-local
+  - serverless-domain-manager
 
 custom:
   dynamodb:
@@ -92,5 +99,9 @@ custom:
       migrate: true
       seed: true
       convertEmptyValues: true
+  customDomain:
+    domainName: ${env:DOMAIN}
+    basePath: ""
+    createRoute53Record: true
 
   
