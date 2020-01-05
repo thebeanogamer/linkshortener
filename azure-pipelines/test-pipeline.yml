@@ -5,7 +5,9 @@ pr:
     - '*'
 
 trigger:
-  - '*'
+  branches:
+    include:
+    - '*'
 
 jobs:
 - job: lint
