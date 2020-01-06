@@ -37,6 +37,14 @@ def view(event, context):
 
 
 def summary(event, context):
+    if event["httpMethod"] == None:
+        db = connect()
+        new = False
+        for i in db.scan():
+            if i["uses"]["recent"] != 0:
+                new = True
+        if not new:
+            raise Exception("No new uses")
     client = boto3.client("ses", region_name=environ.get("SES_REGION"))
     client.send_email(
         Destination={"ToAddresses": [environ.get("ADMIN_CONTACT")]},
