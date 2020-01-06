@@ -28,10 +28,10 @@ jobs:
       workingDir: '$(System.DefaultWorkingDirectory)'
       verbose: false
 
-  - script: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python && source $HOME/.poetry/env
+  - script: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
     displayName: Install Poetry
 
-  - script: '$(System.DefaultWorkingDirectory)/node_modules/.bin/serverless deploy --conceal --stage prod'
+  - script: 'source $HOME/.poetry/env && $(System.DefaultWorkingDirectory)/node_modules/.bin/serverless deploy --conceal --stage prod'
     displayName: 'Deploy with Serverless Framework'
     env:
       AWS_ACCESS_KEY_ID: $(AWS_ACCESS_KEY_ID)
