@@ -39,7 +39,7 @@ def view(event, context):
 def summary(event, context):
     client = boto3.client("ses", region_name=environ.get("AWS_REGION"))
     client.send_email(
-        Destination={"ToAddresses": []},
+        Destination={"ToAddresses": [environ.get("ADMIN_CONTACT")]},
         Message={
             "Body": {
                 "Html": {"Charset": "UTF-8", "Data": generate(event)},
