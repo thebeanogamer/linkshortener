@@ -12,6 +12,7 @@ provider:
     - ${opt:stage}-adminkey
   environment:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+    ADMIN_CONTACT: ${env:ADMIN_CONTACT}
   iamRoleStatements:
       - Effect: Allow
         Action:
@@ -68,6 +69,13 @@ functions:
           path: /email
           method: get
           private: true
+  email:
+    handler: linkshortener/notifications.summary
+    events:
+      - http:
+        path: /email
+        method: post
+        private: true
   shortener:
     handler: linkshortener/shortener.shortener
     events:
