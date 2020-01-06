@@ -17,7 +17,7 @@ jobs:
       versionSpec: 12.x
 
   - task: UsePythonVersion@0
-    displayName: Set Python 3.8
+    displayName: Use Python 3.8
     inputs:
       versionSpec: 3.8.x
       addToPath: true
