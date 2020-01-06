@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+    <h1>Link Shortener Summary - {{ date }}</h1>
+    <table cellspacing="0" cellpadding="0" style="border-collapse:collapse;border:none">
+        <thead>
+            <tr>
+                <th valign="top"
+                    style="border:solid #999999 1.0pt;border-bottom:solid #666666 1.5pt;padding:0cm 5.4pt 0cm 5.4pt">
+                    Code</th>
+                <th valign="top"
+                    style="border:solid #999999 1.0pt;border-bottom:solid #666666 1.5pt;padding:0cm 5.4pt 0cm 5.4pt">URL
+                </th>
+                <th valign="top"
+                    style="border:solid #999999 1.0pt;border-bottom:solid #666666 1.5pt;padding:0cm 5.4pt 0cm 5.4pt">
+                    Recent Uses</th>
+                <th valign="top"
+                    style="border:solid #999999 1.0pt;border-bottom:solid #666666 1.5pt;padding:0cm 5.4pt 0cm 5.4pt">
+                    Lifetime Uses</th>
+            </tr>
+        </thead>
+        {% for link in links %}
+        <tr>
+            <td valign="top" style="border:solid #999999 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt">
+                {{ link["code"] }}</td>
+            <td valign="top" style="border:solid #999999 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt">
+                {{ link["url"] }}</td>
+            <td valign="top" style="border:solid #999999 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt">
+                {{ link["uses"]["recent"] }}</td>
+            <td valign="top" style="border:solid #999999 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt">
+                {{ link["uses"]["lifetime"] }}</td>
+        </tr>
+        {% endfor %}
+    </table><br>
+    <footer>You are receiving this email because you are listed as the owner of an installation of <a
+            href="https://github.com/thebeanogamer/linkshortener">Link Shortener</a></footer>
+</body>
+
+</html>

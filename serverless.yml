@@ -22,6 +22,11 @@ provider:
           - dynamodb:UpdateItem
           - dynamodb:DeleteItem
         Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+      - Effect: Allow
+        Action:
+          - ses:SendEmail
+          - ses:SendRawEmail
+        Resource: "*"
   tracing:
     apiGateway: true
     lambda: true
@@ -55,6 +60,13 @@ functions:
       - http:
           path: /manage
           method: delete
+          private: true
+  preview:
+    handler: linkshortener/notifications.view
+    events:
+      - http:
+          path: /email
+          method: get
           private: true
   shortener:
     handler: linkshortener/shortener.shortener
