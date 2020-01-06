@@ -15,7 +15,7 @@ def generate(event):
                 enabled_extensions=("html", "xml"), default_for_string=True
             ),
         )
-        .get_template("email_template.html", autoescape=True)
+        .get_template("email_template.html")
         .render(date=date.today(), links=db.scan()["Items"])
     )
     for i in db.scan()["Items"]:
