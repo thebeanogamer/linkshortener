@@ -126,5 +126,6 @@ custom:
     createRoute53Record: true
   pythonRequirements:
     dockerizePip: non-linux
+    usePoetry: false
 
   
