@@ -3,7 +3,6 @@ from datetime import date
 from os import environ
 
 import boto3
-from botocore.exceptions import ClientError
 import jinja2
 from linkshortener.shortener import connect
 
@@ -39,7 +38,7 @@ def view(event, context):
 
 def summary(event, context):
     client = boto3.client("ses", region_name=environ.get("SES_REGION"))
-    email = client.send_email(
+    client.send_email(
         Destination={"ToAddresses": [environ.get("ADMIN_CONTACT")]},
         Message={
             "Body": {
