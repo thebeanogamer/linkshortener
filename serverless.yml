@@ -84,6 +84,7 @@ functions:
       - http:
           path: /{id}
           method: get
+      - schedule: rate(24 hours)
 
 resources:
   Resources:
