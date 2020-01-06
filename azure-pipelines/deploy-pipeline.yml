@@ -22,7 +22,7 @@ jobs:
       workingDir: '$(System.DefaultWorkingDirectory)'
       verbose: false
 
-  - script: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+  - script: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python3
     displayName: Install Poetry
 
   - script: $HOME/.poetry/bin/poetry export -f requirements.txt -o requirements.txt
