@@ -78,13 +78,21 @@ functions:
           path: /email
           method: post
           private: true
+      - schedule: rate(24 hours)
+
+  robots:
+    handler: linkshortener/shortener.robots
+    events:
+      - http:
+          path: /robots.txt
+          method: get
+          private: true
   shortener:
     handler: linkshortener/shortener.shortener
     events:
       - http:
           path: /{id}
           method: get
-      - schedule: rate(24 hours)
 
 resources:
   Resources:

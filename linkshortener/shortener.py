@@ -104,3 +104,12 @@ def delete(event, context):
 
 def fallback(event, context):
     return redirect("https://blog.daniel-milnes.uk")
+
+
+def robots(event, context):
+    return {
+        "statusCode": 200,
+        "headers": {"Content-Type": "text/plain"},
+        "body": """User-agent: *
+Disallow: /""",
+    }
