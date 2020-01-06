@@ -9,11 +9,16 @@ import decimal
 
 def generate(event):
     db = connect(event)
+    env = jinja2.Environment(
+        autoescape=jinja2.select_autoescape(
+            enabled_extensions=("html", "xml"), default_for_string=True
+        )
+    )
     page = (
         jinja2.Environment(
             loader=jinja2.FileSystemLoader(searchpath="./linkshortener/templates/")
         )
-        .get_template("email_template.html")
+        .get_template("email_template.html", autoescape=True)
         .render(date=date.today(), links=db.scan()["Items"])
     )
     for i in db.scan()["Items"]:
