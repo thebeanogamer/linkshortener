@@ -1,8 +1,8 @@
 from linkshortener.shortener import connect
 from datetime import date
+import decimal
 from os import environ
 
-import decimal
 
 import boto3
 import jinja2
