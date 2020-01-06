@@ -31,9 +31,6 @@ jobs:
   - script: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
     displayName: Install Poetry
 
-  - script: $HOME/.poetry/bin/poetry export -f requirements.txt -o requirements.txt
-    displayName: Create Requirements File
-
   - script: '$(System.DefaultWorkingDirectory)/node_modules/.bin/serverless deploy --conceal --stage prod'
     displayName: 'Deploy with Serverless Framework'
     env:
