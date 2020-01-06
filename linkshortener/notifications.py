@@ -53,6 +53,6 @@ def summary(event, context):
                 "Data": f"Link Shortener Summary - {date.today()}",
             },
         },
-        Source=f"noreply@{environ.get('DOMAIN')}",
+        Source=f"Link Shortener <noreply@{environ.get('DOMAIN')}>",
     )
     return {"statusCode": 200}
