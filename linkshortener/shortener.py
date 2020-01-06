@@ -45,7 +45,10 @@ def shortener(event, context):
         url = db.get_item(Key={"code": event["pathParameters"]["id"]})["Item"]["url"]
         db.update_item(
             Key={"code": event["pathParameters"]["id"]},
-            UpdateExpression="set uses = uses + :val",
+            UpdateExpression=(
+                "set uses.lifetime = uses.lifetime + :val, "
+                "uses.recent = uses.recent + :val"
+            ),
             ExpressionAttributeValues={":val": decimal.Decimal(1)},
         )
     except KeyError:
@@ -60,7 +63,7 @@ def create(event, context):
             Item={
                 "code": sanitize(json.loads(event["body"])["code"]),
                 "url": json.loads(event["body"])["url"],
-                "uses": 0,
+                "uses": {"recent": 0, "lifetime": 0},
             },
             ConditionExpression="attribute_not_exists(code)",
         )

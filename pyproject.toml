@@ -8,6 +8,7 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = "^3.7"
 boto3 = "^1.10"
+Jinja2 = "^2.10"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.6.0"

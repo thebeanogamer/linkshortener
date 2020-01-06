@@ -12,6 +12,9 @@ provider:
     - ${opt:stage}-adminkey
   environment:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+    ADMIN_CONTACT: ${env:ADMIN_CONTACT}
+    DOMAIN: ${env:DOMAIN}
+    SES_REGION: ${env:SES_REGION}
   iamRoleStatements:
       - Effect: Allow
         Action:
@@ -22,6 +25,11 @@ provider:
           - dynamodb:UpdateItem
           - dynamodb:DeleteItem
         Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+      - Effect: Allow
+        Action:
+          - ses:SendEmail
+          - ses:SendRawEmail
+        Resource: "*"
   tracing:
     apiGateway: true
     lambda: true
@@ -56,12 +64,27 @@ functions:
           path: /manage
           method: delete
           private: true
+  preview:
+    handler: linkshortener/notifications.view
+    events:
+      - http:
+          path: /email
+          method: get
+          private: true
+  email:
+    handler: linkshortener/notifications.summary
+    events:
+      - http:
+          path: /email
+          method: post
+          private: true
   shortener:
     handler: linkshortener/shortener.shortener
     events:
       - http:
           path: /{id}
           method: get
+      - schedule: rate(24 hours)
 
 resources:
   Resources:
@@ -86,6 +109,7 @@ plugins:
   - serverless-offline
   - serverless-dynamodb-local
   - serverless-domain-manager
+  - serverless-python-requirements
 
 custom:
   dynamodb:
@@ -103,5 +127,8 @@ custom:
     domainName: ${env:DOMAIN}
     basePath: ""
     createRoute53Record: true
+  pythonRequirements:
+    dockerizePip: non-linux
+    usePoetry: false
 
   
