@@ -28,7 +28,7 @@ jobs:
       workingDir: '$(System.DefaultWorkingDirectory)'
       verbose: false
 
-  - script: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+  - script: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python && source $HOME/.poetry/env
     displayName: Install Poetry
 
   - script: '$(System.DefaultWorkingDirectory)/node_modules/.bin/serverless deploy --conceal --stage prod'
