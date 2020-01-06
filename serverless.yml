@@ -106,6 +106,7 @@ plugins:
   - serverless-offline
   - serverless-dynamodb-local
   - serverless-domain-manager
+  - serverless-python-requirements
 
 custom:
   dynamodb:
@@ -123,5 +124,7 @@ custom:
     domainName: ${env:DOMAIN}
     basePath: ""
     createRoute53Record: true
+  pythonRequirements:
+    dockerizePip: non-linux
 
   
