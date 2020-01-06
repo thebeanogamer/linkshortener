@@ -1,6 +1,5 @@
 from linkshortener.shortener import connect
 import boto3
-from botocore.exceptions import ClientError
 from os import environ
 from datetime import date
 import jinja2
