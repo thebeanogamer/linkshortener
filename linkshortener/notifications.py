@@ -2,10 +2,9 @@ import decimal
 from datetime import date
 from os import environ
 
-from linkshortener.shortener import connect
-
 import boto3
 import jinja2
+from linkshortener.shortener import connect
 
 
 def generate(event):
