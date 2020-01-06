@@ -13,6 +13,7 @@ provider:
   environment:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
     ADMIN_CONTACT: ${env:ADMIN_CONTACT}
+    DOMAIN: ${env:DOMAIN}
   iamRoleStatements:
       - Effect: Allow
         Action:
