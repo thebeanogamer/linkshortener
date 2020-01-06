@@ -38,7 +38,7 @@ def view(event, context):
 
 
 def summary(event, context):
-    client = boto3.client("ses", region_name=environ.get("AWS_REGION"))
+    client = boto3.client("ses", region_name=environ.get("SES_REGION"))
     email = client.send_email(
         Destination={"ToAddresses": [environ.get("ADMIN_CONTACT")]},
         Message={

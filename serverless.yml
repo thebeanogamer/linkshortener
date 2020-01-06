@@ -14,6 +14,7 @@ provider:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
     ADMIN_CONTACT: ${env:ADMIN_CONTACT}
     DOMAIN: ${env:DOMAIN}
+    SES_REGION: ${env:SES_REGION}
   iamRoleStatements:
       - Effect: Allow
         Action:
