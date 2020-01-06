@@ -73,9 +73,9 @@ functions:
     handler: linkshortener/notifications.summary
     events:
       - http:
-        path: /email
-        method: post
-        private: true
+          path: /email
+          method: post
+          private: true
   shortener:
     handler: linkshortener/shortener.shortener
     events:
