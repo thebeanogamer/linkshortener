@@ -55,3 +55,4 @@ def summary(event, context):
         },
         Source=f"noreply@{environ.get('DOMAIN')}",
     )
+    return {"statusCode": 200}
