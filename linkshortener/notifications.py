@@ -38,24 +38,21 @@ def view(event, context):
 
 
 def summary(event, context):
-    try:
-        client = boto3.client("ses", region_name=environ.get("AWS_REGION"))
-        email = client.send_email(
-            Destination={"ToAddresses": [environ.get("ADMIN_CONTACT")]},
-            Message={
-                "Body": {
-                    "Html": {"Charset": "UTF-8", "Data": generate(event)},
-                    "Text": {
-                        "Charset": "UTF-8",
-                        "Data": "This email must be viewed with HTML",
-                    },
-                },
-                "Subject": {
+    client = boto3.client("ses", region_name=environ.get("AWS_REGION"))
+    email = client.send_email(
+        Destination={"ToAddresses": [environ.get("ADMIN_CONTACT")]},
+        Message={
+            "Body": {
+                "Html": {"Charset": "UTF-8", "Data": generate(event)},
+                "Text": {
                     "Charset": "UTF-8",
-                    "Data": f"Link Shortener Summary - {date.today()}",
+                    "Data": "This email must be viewed with HTML",
                 },
             },
-            Source=True,
-        )
-    except ClientError as e:
-        raise e.response['Error']['Message']
+            "Subject": {
+                "Charset": "UTF-8",
+                "Data": f"Link Shortener Summary - {date.today()}",
+            },
+        },
+        Source=f"noreply@{environ.get('DOMAIN')}",
+    )
