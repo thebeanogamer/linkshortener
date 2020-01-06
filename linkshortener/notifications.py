@@ -1,9 +1,11 @@
 from linkshortener.shortener import connect
-import boto3
-from os import environ
 from datetime import date
-import jinja2
+from os import environ
+
 import decimal
+
+import boto3
+import jinja2
 
 
 def generate(event):
