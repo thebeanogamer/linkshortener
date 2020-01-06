@@ -3,6 +3,7 @@ from datetime import date
 from os import environ
 
 import boto3
+from botocore.exceptions import ClientError
 import jinja2
 from linkshortener.shortener import connect
 
@@ -37,21 +38,24 @@ def view(event, context):
 
 
 def summary(event, context):
-    client = boto3.client("ses", region_name=environ.get("AWS_REGION"))
-    client.send_email(
-        Destination={"ToAddresses": [environ.get("ADMIN_CONTACT")]},
-        Message={
-            "Body": {
-                "Html": {"Charset": "UTF-8", "Data": generate(event)},
-                "Text": {
+    try:
+        client = boto3.client("ses", region_name=environ.get("AWS_REGION"))
+        email = client.send_email(
+            Destination={"ToAddresses": [environ.get("ADMIN_CONTACT")]},
+            Message={
+                "Body": {
+                    "Html": {"Charset": "UTF-8", "Data": generate(event)},
+                    "Text": {
+                        "Charset": "UTF-8",
+                        "Data": "This email must be viewed with HTML",
+                    },
+                },
+                "Subject": {
                     "Charset": "UTF-8",
-                    "Data": "This email must be viewed with HTML",
+                    "Data": f"Link Shortener Summary - {date.today()}",
                 },
             },
-            "Subject": {
-                "Charset": "UTF-8",
-                "Data": f"Link Shortener Summary - {date.today()}",
-            },
-        },
-        Source=True,
-    )
+            Source=True,
+        )
+    except ClientError as e:
+        raise e.response['Error']['Message']
