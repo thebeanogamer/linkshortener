@@ -86,7 +86,6 @@ functions:
       - http:
           path: /robots.txt
           method: get
-          private: true
   shortener:
     handler: linkshortener/shortener.shortener
     events:
