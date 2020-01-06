@@ -16,13 +16,19 @@ jobs:
     inputs:
       versionSpec: 12.x
 
+  - task: UsePythonVersion@0
+    displayName: Set Python 3.8
+    inputs:
+      versionSpec: 3.8.x
+      addToPath: true
+
   - task: Npm@1
     displayName: 'Install Node Packages'
     inputs:
       workingDir: '$(System.DefaultWorkingDirectory)'
       verbose: false
 
-  - script: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python3
+  - script: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
     displayName: Install Poetry
 
   - script: $HOME/.poetry/bin/poetry export -f requirements.txt -o requirements.txt
