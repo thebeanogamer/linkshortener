@@ -60,10 +60,7 @@ def create(event, context):
             Item={
                 "code": sanitize(json.loads(event["body"])["code"]),
                 "url": json.loads(event["body"])["url"],
-                "uses": {
-                    "recent": 0,
-                    "lifetime": 0
-                },
+                "uses": {"recent": 0, "lifetime": 0},
             },
             ConditionExpression="attribute_not_exists(code)",
         )
