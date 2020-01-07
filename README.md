@@ -12,10 +12,10 @@ Before running the deployment you must manually create a certificate in `us-east
 
 Variable | Value
 --- | ---
-ADMIN_CONTACT | The email address for updates to be sent to
-DOMAIN | The domain your shortener will be hosted on
-FALLBACK_URL | The URL to redirect to in the absence of a specifically defined one
-SES_REGION | The region where you have configured SES
+`ADMIN_CONTACT` | The email address for updates to be sent to
+`DOMAIN` | The domain your shortener will be hosted on
+`FALLBACK_URL` | The URL to redirect to in the absence of a specifically defined one
+`SES_REGION` | The region where you have configured SES
 
 ```bash
 npm install
