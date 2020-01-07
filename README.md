@@ -46,6 +46,10 @@ Link Shortener tracks two values for usage, `lifetime` and `recent`. The `recent
 
 ![Deployment Pipeline](assets/Deploy.svg)
 
+### Email
+
+![Email Pipeline](assets/Email.svg)
+
 ## Endpoints
 
 Endpoints with the 🔑 emoji require the `X-Api-Key` header.
