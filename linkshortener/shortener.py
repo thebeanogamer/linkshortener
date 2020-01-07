@@ -113,3 +113,7 @@ def robots(event, context):
         "body": """User-agent: *
 Disallow: /""",
     }
+
+
+def favicon(event, context):
+    return {"statusCode": 404}

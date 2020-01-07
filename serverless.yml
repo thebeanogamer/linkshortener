@@ -15,6 +15,7 @@ provider:
     ADMIN_CONTACT: ${env:ADMIN_CONTACT}
     DOMAIN: ${env:DOMAIN}
     SES_REGION: ${env:SES_REGION}
+    FALLBACK_URL: ${env:FALLBACK_URL}
   iamRoleStatements:
       - Effect: Allow
         Action:
@@ -84,6 +85,12 @@ functions:
     events:
       - http:
           path: /robots.txt
+          method: get
+  favicon:
+    handler: linkshortener/shortener.favicon
+    events:
+      - http:
+          path: /favicon.ico
           method: get
   shortener:
     handler: linkshortener/shortener.shortener
