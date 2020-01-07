@@ -103,8 +103,7 @@ def delete(event, context):
 
 
 def fallback(event, context):
-    return redirect("https://blog.daniel-milnes.uk")
-
+    return redirect(os.environ["FALLBACK_URL"])
 
 def robots(event, context):
     return {
