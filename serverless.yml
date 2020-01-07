@@ -79,7 +79,6 @@ functions:
           method: post
           private: true
       - schedule: rate(24 hours)
-
   robots:
     handler: linkshortener/shortener.robots
     events:
@@ -117,6 +116,7 @@ plugins:
   - serverless-dynamodb-local
   - serverless-domain-manager
   - serverless-python-requirements
+  - serverless-ignore
 
 custom:
   dynamodb:
