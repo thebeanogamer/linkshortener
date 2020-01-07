@@ -87,6 +87,12 @@ functions:
       - http:
           path: /robots.txt
           method: get
+  favicon:
+    handler: linkshortener/shortener.favicon
+    events:
+      - http:
+          path: /favicon.ico
+          method: get
   shortener:
     handler: linkshortener/shortener.shortener
     events:
