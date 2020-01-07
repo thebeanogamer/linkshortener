@@ -46,6 +46,10 @@ Link Shortener tracks two values for usage, `lifetime` and `recent`. The `recent
 
 ![Deployment Pipeline](assets/Deploy.svg)
 
+### Shortener
+
+![Usage Pipeline](assets/Usage.svg)
+
 ### Email
 
 ![Email Pipeline](assets/Email.svg)
