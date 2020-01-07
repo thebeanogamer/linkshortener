@@ -114,5 +114,6 @@ def robots(event, context):
 Disallow: /""",
     }
 
+
 def favicon(event, context):
     return {"statusCode": 404}
