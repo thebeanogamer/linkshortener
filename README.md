@@ -1,6 +1,8 @@
 # Link Shortener
 
-This project is an over-engineered Link Shortener built using as many AWS services as was reasonably possible.
+[![Build Status](https://dev.azure.com/thebeanogamer/linkshortener/_apis/build/status/Validate%20Pipeline?branchName=master)](https://dev.azure.com/thebeanogamer/linkshortener/_build/latest?definitionId=5&branchName=master) [![Build Status](https://dev.azure.com/thebeanogamer/linkshortener/_apis/build/status/Deploy%20Pipeline?branchName=master)](https://dev.azure.com/thebeanogamer/linkshortener/_build/latest?definitionId=6&branchName=master) ![Licence](https://img.shields.io/github/license/thebeanogamer/linkshortener) ![Python 3.8.x](https://img.shields.io/badge/python-3.8.x-yellow.svg)
+
+This project is an over-engineered Link Shortener built using as many AWS services as was reasonably possible. An example deployment of this is deployed on <https://beano.dev>.
 
 ## Usage
 
