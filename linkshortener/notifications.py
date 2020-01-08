@@ -7,8 +7,8 @@ import jinja2
 from linkshortener.shortener import connect
 
 
-def generate(event):
-    db = connect(event)
+def generate():
+    db = connect()
     page = (
         jinja2.Environment(
             loader=jinja2.FileSystemLoader(searchpath="./linkshortener/templates/"),
