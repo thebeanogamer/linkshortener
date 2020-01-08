@@ -37,7 +37,7 @@ def view(event, context):
 
 
 def summary(event, context):
-    if event["httpMethod"] is None:
+    if event.get("httpMethod") is None:
         db = connect()
         new = False
         for i in db.scan():
