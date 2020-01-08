@@ -40,7 +40,7 @@ def summary(event, context):
     if event.get("httpMethod") is None:
         db = connect()
         new = False
-        for i in db.scan():
+        for i in db.scan().values():
             if i["uses"]["recent"] != 0:
                 new = True
         if not new:
