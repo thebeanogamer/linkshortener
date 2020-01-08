@@ -8,11 +8,11 @@ import botocore
 from botocore.config import Config
 
 
-def connect(event):
+def connect():
     return boto3.resource(
         "dynamodb",
         endpoint_url="http://localhost:8000"
-        if event["requestContext"]["stage"] == "dev"
+        if os.environ.get("STAGE") == "dev"
         else None,
         region_name="eu-west-2",
         config=Config(connect_timeout=5, retries={"max_attempts": 3}),
@@ -40,7 +40,7 @@ def redirect(url):
 
 
 def shortener(event, context):
-    db = connect(event)
+    db = connect()
     try:
         url = db.get_item(Key={"code": event["pathParameters"]["id"]})["Item"]["url"]
         db.update_item(
@@ -57,7 +57,7 @@ def shortener(event, context):
 
 
 def create(event, context):
-    db = connect(event)
+    db = connect()
     try:
         db.put_item(
             Item={
@@ -74,7 +74,7 @@ def create(event, context):
 
 
 def view(event, context):
-    db = connect(event)
+    db = connect()
     if event["queryStringParameters"] is not None and event[
         "queryStringParameters"
     ].get("code") not in (None, ""):
@@ -90,7 +90,7 @@ def view(event, context):
 
 
 def delete(event, context):
-    db = connect(event)
+    db = connect()
     try:
         db.delete_item(
             Key={"code": sanitize(json.loads(event["body"])["code"])},
@@ -103,7 +103,7 @@ def delete(event, context):
 
 
 def fallback(event, context):
-    return redirect(os.environ["FALLBACK_URL"])
+    return redirect(os.environ.get("FALLBACK_URL"))
 
 
 def robots(event, context):

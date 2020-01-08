@@ -7,8 +7,8 @@ import jinja2
 from linkshortener.shortener import connect
 
 
-def generate(event):
-    db = connect(event)
+def generate():
+    db = connect()
     page = (
         jinja2.Environment(
             loader=jinja2.FileSystemLoader(searchpath="./linkshortener/templates/"),
@@ -37,10 +37,10 @@ def view(event, context):
 
 
 def summary(event, context):
-    if event["httpMethod"] is None:
+    if event.get("httpMethod") is None:
         db = connect()
         new = False
-        for i in db.scan():
+        for i in db.scan()["Items"]:
             if i["uses"]["recent"] != 0:
                 new = True
         if not new:
@@ -50,7 +50,7 @@ def summary(event, context):
         Destination={"ToAddresses": [environ.get("ADMIN_CONTACT")]},
         Message={
             "Body": {
-                "Html": {"Charset": "UTF-8", "Data": generate(event)},
+                "Html": {"Charset": "UTF-8", "Data": generate()},
                 "Text": {
                     "Charset": "UTF-8",
                     "Data": "This email must be viewed with HTML",

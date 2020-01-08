@@ -7,7 +7,7 @@ provider:
   runtime: python3.8
   region: eu-west-2
   memorySize: 128
-  timeout: 20
+  timeout: 6
   apiKeys:
     - ${opt:stage}-adminkey
   environment:
@@ -16,6 +16,7 @@ provider:
     DOMAIN: ${env:DOMAIN}
     SES_REGION: ${env:SES_REGION}
     FALLBACK_URL: ${env:FALLBACK_URL}
+    STAGE: ${opt:stage, self:provider.stage}
   iamRoleStatements:
       - Effect: Allow
         Action:
