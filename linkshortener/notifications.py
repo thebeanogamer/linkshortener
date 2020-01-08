@@ -50,7 +50,7 @@ def summary(event, context):
         Destination={"ToAddresses": [environ.get("ADMIN_CONTACT")]},
         Message={
             "Body": {
-                "Html": {"Charset": "UTF-8", "Data": generate(event)},
+                "Html": {"Charset": "UTF-8", "Data": generate()},
                 "Text": {
                     "Charset": "UTF-8",
                     "Data": "This email must be viewed with HTML",
