@@ -6,7 +6,7 @@ authors = ["Daniel Milnes <thebeanogamer@gmail.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 boto3 = "^1.10"
 Jinja2 = "^2.10"
 
