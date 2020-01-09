@@ -31,7 +31,7 @@ def generate():
 def view(event, context):
     return {
         "statusCode": 200,
-        "body": generate(event),
+        "body": generate(),
         "headers": {"Content-Type": "text/html"},
     }
 
