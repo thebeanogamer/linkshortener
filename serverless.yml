@@ -45,6 +45,11 @@ functions:
       - http:
           path: /
           method: get
+          response:
+            headers:
+              Strict-Transport-Security: "'max-age=31536000; includeSubDomains; preload'"
+              X-Content-Type-Options: "'nosniff'"
+              Cache-Control: "'max-age=0; Expires=-1 or Expires: Fri, 01 Jan 1990 00:00:00 GMT; no-cache, must-revalidate'"
   create:
     handler: linkshortener/shortener.create
     events:
@@ -52,6 +57,11 @@ functions:
           path: /manage
           method: put
           private: true
+          response:
+            headers:
+              Strict-Transport-Security: "'max-age=31536000; includeSubDomains; preload'"
+              X-Content-Type-Options: "'nosniff'"
+              Cache-Control: "'max-age=0; Expires=-1 or Expires: Fri, 01 Jan 1990 00:00:00 GMT; no-cache, must-revalidate'"
   view:
     handler: linkshortener/shortener.view
     events:
@@ -59,6 +69,11 @@ functions:
           path: /manage
           method: get
           private: true
+          response:
+            headers:
+              Strict-Transport-Security: "'max-age=31536000; includeSubDomains; preload'"
+              X-Content-Type-Options: "'nosniff'"
+              Cache-Control: "'max-age=0; Expires=-1 or Expires: Fri, 01 Jan 1990 00:00:00 GMT; no-cache, must-revalidate'"
   delete:
     handler: linkshortener/shortener.delete
     events:
@@ -66,6 +81,11 @@ functions:
           path: /manage
           method: delete
           private: true
+          response:
+            headers:
+              Strict-Transport-Security: "'max-age=31536000; includeSubDomains; preload'"
+              X-Content-Type-Options: "'nosniff'"
+              Cache-Control: "'max-age=0; Expires=-1 or Expires: Fri, 01 Jan 1990 00:00:00 GMT; no-cache, must-revalidate'"
   preview:
     handler: linkshortener/notifications.view
     events:
@@ -73,6 +93,11 @@ functions:
           path: /email
           method: get
           private: true
+          response:
+            headers:
+              Strict-Transport-Security: "'max-age=31536000; includeSubDomains; preload'"
+              X-Content-Type-Options: "'nosniff'"
+              Cache-Control: "'max-age=0; Expires=-1 or Expires: Fri, 01 Jan 1990 00:00:00 GMT; no-cache, must-revalidate'"
   email:
     handler: linkshortener/notifications.summary
     events:
@@ -80,6 +105,11 @@ functions:
           path: /email
           method: post
           private: true
+          response:
+            headers:
+              Strict-Transport-Security: "'max-age=31536000; includeSubDomains; preload'"
+              X-Content-Type-Options: "'nosniff'"
+              Cache-Control: "'max-age=0; Expires=-1 or Expires: Fri, 01 Jan 1990 00:00:00 GMT; no-cache, must-revalidate'"
       - schedule: rate(24 hours)
   robots:
     handler: linkshortener/shortener.robots
@@ -87,18 +117,33 @@ functions:
       - http:
           path: /robots.txt
           method: get
+          response:
+            headers:
+              Strict-Transport-Security: "'max-age=31536000; includeSubDomains; preload'"
+              X-Content-Type-Options: "'nosniff'"
+              Cache-Control: "'max-age=0; Expires=-1 or Expires: Fri, 01 Jan 1990 00:00:00 GMT; no-cache, must-revalidate'"
   favicon:
     handler: linkshortener/shortener.favicon
     events:
       - http:
           path: /favicon.ico
           method: get
+          response:
+            headers:
+              Strict-Transport-Security: "'max-age=31536000; includeSubDomains; preload'"
+              X-Content-Type-Options: "'nosniff'"
+              Cache-Control: "'max-age=0; Expires=-1 or Expires: Fri, 01 Jan 1990 00:00:00 GMT; no-cache, must-revalidate'"
   shortener:
     handler: linkshortener/shortener.shortener
     events:
       - http:
           path: /{id}
           method: get
+          response:
+            headers:
+              Strict-Transport-Security: "'max-age=31536000; includeSubDomains; preload'"
+              X-Content-Type-Options: "'nosniff'"
+              Cache-Control: "'max-age=0; Expires=-1 or Expires: Fri, 01 Jan 1990 00:00:00 GMT; no-cache, must-revalidate'"
 
 resources:
   Resources:
