@@ -4,7 +4,7 @@ from os import environ
 
 import boto3
 import jinja2
-from linkshortener.shortener import connect
+from linkshortener.shortener import connect, headers
 
 
 def generate():
@@ -32,7 +32,7 @@ def view(event, context):
     return {
         "statusCode": 200,
         "body": generate(),
-        "headers": {"Content-Type": "text/html"},
+        "headers": {"Content-Type": "text/html"} + headers,
     }
 
 
@@ -63,4 +63,4 @@ def summary(event, context):
         },
         Source=f"Link Shortener <noreply@{environ.get('DOMAIN')}>",
     )
-    return {"statusCode": 200}
+    return {"statusCode": 200, "headers": headers}
