@@ -10,7 +10,8 @@ from botocore.config import Config
 headers = {
     "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
     "X-Content-Type-Options": "nosniff",
-    "Cache-Control": "max-age=0; Expires=-1 or Expires: Fri, 01 Jan 1990 00:00:00 GMT; no-cache, must-revalidate",
+    "Cache-Control": "max-age=0; Expires=-1 or Expires: Fri, 01 Jan 1990 00:00:00 GMT\
+; no-cache, must-revalidate",
 }
 
 
