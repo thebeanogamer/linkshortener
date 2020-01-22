@@ -7,6 +7,12 @@ import boto3
 import botocore
 from botocore.config import Config
 
+headers = {
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
+    "X-Content-Type-Options": "nosniff",
+    "Cache-Control": "max-age=0; Expires=-1 or Expires: Fri, 01 Jan 1990 00:00:00 GMT; no-cache, must-revalidate",
+}
+
 
 def connect():
     return boto3.resource(
@@ -35,8 +41,7 @@ def sanitize(url):
 
 
 def redirect(url):
-    response = {"statusCode": 302, "headers": {"Location": url}}
-    return response
+    return {"statusCode": 302, "headers": {"Location": url} + headers}
 
 
 def shortener(event, context):
@@ -69,8 +74,8 @@ def create(event, context):
         )
     except botocore.exceptions.ClientError as e:
         if e.response["Error"]["Code"] == "ConditionalCheckFailedException":
-            return {"statusCode": 409}
-    return {"statusCode": 200}
+            return {"statusCode": 409, "headers": headers}
+    return {"statusCode": 200, "headers": headers}
 
 
 def view(event, context):
@@ -98,8 +103,12 @@ def delete(event, context):
         )
     except botocore.exceptions.ClientError as e:
         if e.response["Error"]["Code"] == "ConditionalCheckFailedException":
-            return {"statusCode": 404, "body": json.dumps({"error": "Code not found"})}
-    return {"statusCode": 200}
+            return {
+                "statusCode": 404,
+                "body": json.dumps({"error": "Code not found"}),
+                "headers": headers,
+            }
+    return {"statusCode": 200, "headers": headers}
 
 
 def fallback(event, context):
@@ -112,8 +121,9 @@ def robots(event, context):
         "headers": {"Content-Type": "text/plain"},
         "body": """User-agent: *
 Disallow: /""",
+        "headers": headers,
     }
 
 
 def favicon(event, context):
-    return {"statusCode": 404}
+    return {"statusCode": 404, "headers": headers}
