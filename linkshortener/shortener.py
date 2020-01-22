@@ -42,7 +42,7 @@ def sanitize(url):
 
 
 def redirect(url):
-    return {"statusCode": 302, "headers": {"Location": url} + headers}
+    return {"statusCode": 302, "headers": {**{"Location": url}, **headers}}
 
 
 def shortener(event, context):
@@ -119,7 +119,7 @@ def fallback(event, context):
 def robots(event, context):
     return {
         "statusCode": 200,
-        "headers": {"Content-Type": "text/plain"} + headers,
+        "headers": {**{"Content-Type": "text/plain"}, **headers},
         "body": """User-agent: *
 Disallow: /""",
     }

@@ -32,7 +32,7 @@ def view(event, context):
     return {
         "statusCode": 200,
         "body": generate(),
-        "headers": {"Content-Type": "text/html"} + headers,
+        "headers": {**{"Content-Type": "text/html"}, **headers},
     }
 
 
