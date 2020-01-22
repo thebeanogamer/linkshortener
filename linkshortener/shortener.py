@@ -118,10 +118,9 @@ def fallback(event, context):
 def robots(event, context):
     return {
         "statusCode": 200,
-        "headers": {"Content-Type": "text/plain"},
+        "headers": {"Content-Type": "text/plain"} + headers,
         "body": """User-agent: *
 Disallow: /""",
-        "headers": headers,
     }
 
 
