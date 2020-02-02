@@ -5,7 +5,7 @@ service: linkshortener
 provider:
   name: aws
   runtime: python3.8
-  region: eu-west-2
+  region: ${env:REGION}
   memorySize: 128
   timeout: 6
   apiKeys:
