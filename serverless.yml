@@ -97,7 +97,7 @@ functions:
     handler: linkshortener/shortener.shortener
     events:
       - http:
-          path: /{id}
+          path: /{id+}
           method: get
 
 resources:
