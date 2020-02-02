@@ -49,14 +49,14 @@ def shortener(event, context):
     db = connect()
     try:
         url = db.get_item(Key={"code": event["pathParameters"]["id"]})["Item"]["url"]
-        db.update_item(
-            Key={"code": event["pathParameters"]["id"]},
-            UpdateExpression=(
-                "set uses.lifetime = uses.lifetime + :val, "
-                "uses.recent = uses.recent + :val"
-            ),
-            ExpressionAttributeValues={":val": decimal.Decimal(1)},
-        )
+        #db.update_item(
+        #    Key={"code": event["pathParameters"]["id"]},
+        #    UpdateExpression=(
+        #        "set uses.lifetime = uses.lifetime + :val, "
+        #        "uses.recent = uses.recent + :val"
+        #    ),
+        #    ExpressionAttributeValues={":val": decimal.Decimal(1)},
+        #)
     except KeyError:
         return fallback(event, context)
     return redirect(url)
