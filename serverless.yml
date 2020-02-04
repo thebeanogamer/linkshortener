@@ -45,6 +45,9 @@ functions:
       - http:
           path: /
           method: get
+          caching:
+            enabled: true
+            ttlInSeconds: 3600
   create:
     handler: linkshortener/shortener.create
     events:
@@ -99,6 +102,10 @@ functions:
       - http:
           path: /{id}
           method: get
+          caching:
+            enabled: true
+            cacheKeyParameters:
+              - name: request.path.id
 
 resources:
   Resources:
@@ -120,11 +127,13 @@ resources:
         TableName: ${self:provider.environment.DYNAMODB_TABLE}
 
 plugins:
-  - serverless-offline
   - serverless-dynamodb-local
   - serverless-domain-manager
   - serverless-python-requirements
   - serverless-ignore
+  - serverless-api-gateway-caching
+  - serverless-offline
+
 
 custom:
   dynamodb:
@@ -145,5 +154,9 @@ custom:
   pythonRequirements:
     dockerizePip: non-linux
     usePoetry: false
+  apiGatewayCaching:
+    enabled: true
+    ttlInSeconds: 300
+    dataEncrypted: true
 
   
