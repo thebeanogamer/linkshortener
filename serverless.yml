@@ -6,7 +6,7 @@ provider:
   name: aws
   runtime: python3.8
   region: ${env:REGION}
-  memorySize: 512
+  memorySize: 1024
   timeout: 6
   apiKeys:
     - ${opt:stage}-adminkey
