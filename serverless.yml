@@ -32,9 +32,12 @@ provider:
           - ses:SendEmail
           - ses:SendRawEmail
         Resource: "*"
-  tracing:
-    apiGateway: true
-    lambda: true
+      - Effect: Allow
+        Action:
+          - xray:PutTraceSegments
+          - xray:PutTelemetryRecords
+        Resource: "*"
+  tracing: true
   logs:
     restApi: true
 
@@ -124,6 +127,7 @@ plugins:
   - serverless-dynamodb-local
   - serverless-domain-manager
   - serverless-python-requirements
+  - serverless-plugin-tracing
   - serverless-ignore
 
 custom:
