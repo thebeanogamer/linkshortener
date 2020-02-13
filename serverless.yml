@@ -32,7 +32,7 @@ provider:
         Action:
           - ses:SendEmail
           - ses:SendRawEmail
-        Resource: "*"
+        Resource: arn:aws:ses:${env:SES_REGION}:${AWS::AccountId}:identity/${env:DOMAIN}
   tracing: true
   logs:
     restApi: true
