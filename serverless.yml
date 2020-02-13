@@ -26,18 +26,13 @@ provider:
           - dynamodb:PutItem
           - dynamodb:UpdateItem
           - dynamodb:DeleteItem
-        Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+        Resource: 
+          - "Fn::GetAtt": [ ShortenerDynamoDbTable, Arn ]
       - Effect: Allow
         Action:
           - ses:SendEmail
           - ses:SendRawEmail
-        Resource: "*"
-      - Effect: Allow
-        Action:
-          - xray:PutTraceSegments
-          - xray:PutTelemetryRecords
-        Resource: "*"
-  tracing: true
+        Resource: arn:aws:ses:${env:SES_REGION}:#{AWS::AccountId}:identity/${env:DOMAIN}
   logs:
     restApi: true
 
@@ -125,6 +120,7 @@ resources:
 plugins:
   - serverless-offline
   - serverless-dynamodb-local
+  - serverless-pseudo-parameters
   - serverless-domain-manager
   - serverless-python-requirements
   - serverless-plugin-tracing
