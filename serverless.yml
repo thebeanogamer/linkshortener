@@ -33,11 +33,6 @@ provider:
           - ses:SendEmail
           - ses:SendRawEmail
         Resource: "*"
-      - Effect: Allow
-        Action:
-          - xray:PutTraceSegments
-          - xray:PutTelemetryRecords
-        Resource: "*"
   tracing: true
   logs:
     restApi: true
