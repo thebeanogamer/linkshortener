@@ -19,6 +19,7 @@
     "serverless-ignore": "^0.1.5",
     "serverless-offline": "^5.12.1",
     "serverless-plugin-tracing": "^2.0.0",
+    "serverless-pseudo-parameters": "^2.5.0",
     "serverless-python-requirements": "^5.0.1"
   }
 }

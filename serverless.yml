@@ -27,12 +27,12 @@ provider:
           - dynamodb:UpdateItem
           - dynamodb:DeleteItem
         Resource: 
-          - "Fn::GetAtt": [ ShortenerDynamoDbTable, Arn ]
+          - #{ShortenerDynamoDbTable.Arn}
       - Effect: Allow
         Action:
           - ses:SendEmail
           - ses:SendRawEmail
-        Resource: arn:aws:ses:${env:SES_REGION}:${AWS::AccountId}:identity/${env:DOMAIN}
+        Resource: arn:aws:ses:${env:SES_REGION}:#{AWS::AccountId}:identity/${env:DOMAIN}
   logs:
     restApi: true
 
@@ -120,6 +120,7 @@ resources:
 plugins:
   - serverless-offline
   - serverless-dynamodb-local
+  - serverless-pseudo-parameters
   - serverless-domain-manager
   - serverless-python-requirements
   - serverless-plugin-tracing
