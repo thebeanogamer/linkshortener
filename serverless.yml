@@ -27,7 +27,7 @@ provider:
           - dynamodb:UpdateItem
           - dynamodb:DeleteItem
         Resource: 
-          - #{ShortenerDynamoDbTable.Arn}
+          - "Fn::GetAtt": [ ShortenerDynamoDbTable, Arn ]
       - Effect: Allow
         Action:
           - ses:SendEmail
