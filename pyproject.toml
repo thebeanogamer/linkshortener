@@ -7,7 +7,7 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-boto3 = "^1.10"
+boto3 = "^1.12"
 Jinja2 = "^2.10"
 
 [tool.poetry.dev-dependencies]
