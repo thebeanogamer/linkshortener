@@ -13,7 +13,7 @@
   },
   "homepage": "https://github.com/thebeanogamer/linkshortener#readme",
   "devDependencies": {
-    "serverless": "^1.67.0",
+    "serverless": "^1.67.1",
     "serverless-domain-manager": "^3.3.1",
     "serverless-dynamodb-local": "^0.2.39",
     "serverless-ignore": "^0.1.5",
