@@ -17,7 +17,7 @@ def generate():
             ),
         )
         .get_template("email_template.html")
-        .render(date=date.today(), links=db.scan()["Items"])
+        .render(date=date.today(), links=sorted(db.scan()["Items"], lambda x: x["code"]))
     )
     for i in db.scan()["Items"]:
         db.update_item(
