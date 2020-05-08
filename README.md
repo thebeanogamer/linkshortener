@@ -15,7 +15,7 @@ Variable | Value
 `ADMIN_CONTACT` | The email address for updates to be sent to
 `DOMAIN` | The domain your shortener will be hosted on
 `FALLBACK_URL` | The URL to redirect to in the absence of a specifically defined one
-`REGION` | The region to deploy to
+`AWS_REGION` | The region to deploy to
 `SES_REGION` | The region where you have configured SES
 
 ```bash
