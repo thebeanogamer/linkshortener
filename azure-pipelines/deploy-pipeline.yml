@@ -5,6 +5,7 @@ pr: none
 
 variables:
   npm_config_cache: $(Pipeline.Workspace)/.npm
+  PIP_CACHE_DIR: $(Pipeline.Workspace)/.pip
 
 jobs:
 - job: Deploy
@@ -32,6 +33,15 @@ jobs:
         npm | "$(Agent.OS)"
       path: $(npm_config_cache)
     displayName: Cache npm
+
+  - task: Cache@2
+    inputs:
+      key: 'python | "$(Agent.OS)" | requirements.txt'
+      restoreKeys: | 
+        python | "$(Agent.OS)"
+        python
+      path: $(PIP_PATH_CACHE)
+    displayName: Cache pip packages
 
   - task: Npm@1
     displayName: 'Install Node Packages'
