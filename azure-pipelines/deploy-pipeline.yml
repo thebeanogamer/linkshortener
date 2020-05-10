@@ -3,6 +3,9 @@ trigger:
 
 pr: none
 
+variables:
+  npm_config_cache: $(Pipeline.Workspace)/.npm
+
 jobs:
 - job: Deploy
   displayName: Deploy
@@ -22,11 +25,19 @@ jobs:
       versionSpec: 3.8.x
       addToPath: true
 
+  - task: Cache@2
+    inputs:
+      key: 'npm | "$(Agent.OS)" | package-lock.json'
+      restoreKeys: |
+        npm | "$(Agent.OS)"
+      path: $(npm_config_cache)
+    displayName: Cache npm
+
   - task: Npm@1
     displayName: 'Install Node Packages'
     inputs:
       workingDir: '$(System.DefaultWorkingDirectory)'
-      verbose: false
+      verbose: true
 
   - script: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
     displayName: Install Poetry
