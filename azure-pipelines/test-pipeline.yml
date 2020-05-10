@@ -35,13 +35,13 @@ jobs:
       path: $(PIP_CACHE_DIR)
     displayName: Cache pip packages
 
-  - script: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+  - script: pip install poetry
     displayName: Install Poetry
 
-  - script: $HOME/.poetry/bin/poetry config virtualenvs.create false
+  - script: poetry config virtualenvs.create false
     displayName: Disable Poetry VirtualEnvs
 
-  - script: $HOME/.poetry/bin/poetry install --no-interaction --no-ansi
+  - script: poetry install --no-interaction --no-ansi
     displayName: Install project using Poetry
 
   - script: python -m flake8 .
