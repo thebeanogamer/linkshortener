@@ -52,9 +52,6 @@ jobs:
   - script: pip install poetry
     displayName: Install Poetry
 
-  - script: poetry export -f requirements.txt -o $(System.DefaultWorkingDirectory)/requirements.txt
-    displayName: Generate Requirements
-
   - script: '$(System.DefaultWorkingDirectory)/node_modules/.bin/serverless deploy --conceal --stage prod'
     displayName: 'Deploy with Serverless Framework'
     env:
