@@ -49,10 +49,10 @@ jobs:
       workingDir: '$(System.DefaultWorkingDirectory)'
       verbose: true
 
-  - script: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+  - script: pip install poetry
     displayName: Install Poetry
 
-  - script: $HOME/.poetry/bin/poetry export -f requirements.txt -o $(System.DefaultWorkingDirectory)/requirements.txt
+  - script: poetry export -f requirements.txt -o $(System.DefaultWorkingDirectory)/requirements.txt
     displayName: Generate Requirements
 
   - script: '$(System.DefaultWorkingDirectory)/node_modules/.bin/serverless deploy --conceal --stage prod'
