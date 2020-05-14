@@ -3,6 +3,10 @@ trigger:
 
 pr: none
 
+variables:
+  npm_config_cache: $(Pipeline.Workspace)/.npm
+  PIP_CACHE_DIR: $(Pipeline.Workspace)/.pip
+
 jobs:
 - job: Deploy
   displayName: Deploy
@@ -22,17 +26,31 @@ jobs:
       versionSpec: 3.8.x
       addToPath: true
 
+  - task: Cache@2
+    inputs:
+      key: 'npm | "$(Agent.OS)" | package-lock.json'
+      restoreKeys: |
+        npm | "$(Agent.OS)"
+      path: $(npm_config_cache)
+    displayName: Cache npm
+
+  - task: Cache@2
+    inputs:
+      key: 'python | "$(Agent.OS)" | poetry.lock'
+      restoreKeys: | 
+        python | "$(Agent.OS)"
+        python
+      path: $(PIP_CACHE_DIR)
+    displayName: Cache pip packages
+
   - task: Npm@1
     displayName: 'Install Node Packages'
     inputs:
       workingDir: '$(System.DefaultWorkingDirectory)'
-      verbose: false
+      verbose: true
 
-  - script: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+  - script: pip install poetry
     displayName: Install Poetry
-
-  - script: $HOME/.poetry/bin/poetry export -f requirements.txt -o $(System.DefaultWorkingDirectory)/requirements.txt
-    displayName: Generate Requirements
 
   - script: '$(System.DefaultWorkingDirectory)/node_modules/.bin/serverless deploy --conceal --stage prod'
     displayName: 'Deploy with Serverless Framework'
