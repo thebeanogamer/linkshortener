@@ -8,6 +8,7 @@ from linkshortener.shortener import connect, headers
 
 
 def generate():
+    """Generate the analytics page"""
     db = connect()
     page = (
         jinja2.Environment(
@@ -31,6 +32,7 @@ def generate():
 
 
 def view(event, context):
+    """View the analytics page in browser"""
     return {
         "statusCode": 200,
         "body": generate(),
@@ -39,6 +41,7 @@ def view(event, context):
 
 
 def summary(event, context):
+    """Send an email summary"""
     if event.get("httpMethod") is None:
         db = connect()
         new = False

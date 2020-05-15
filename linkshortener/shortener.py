@@ -16,6 +16,7 @@ headers = {
 
 
 def connect():
+    """Get the DynamoDB table"""
     return boto3.resource(
         "dynamodb",
         endpoint_url="http://localhost:8000"
@@ -28,6 +29,7 @@ def connect():
 
 class DecimalEncoder(json.JSONEncoder):
     def default(self, o):
+        """Convert DynamoDB tables to JSON."""
         if isinstance(o, decimal.Decimal):
             if o % 1 > 0:
                 return float(o)
@@ -37,15 +39,17 @@ class DecimalEncoder(json.JSONEncoder):
 
 
 def sanitize(url):
-    # This function sanitizes URLs so they are compliant with RFC3986
+    """Sanitize URLs so they are compliant with RFC3986"""
     return "".join([i for i in url if i in string.ascii_letters + string.digits])
 
 
 def redirect(url):
+    """Return a redirect to with the appropriate headers"""
     return {"statusCode": 302, "headers": {**{"Location": url}, **headers}}
 
 
 def shortener(event, context):
+    """Query the database for a short code and return a redirect"""
     db = connect()
     try:
         url = db.get_item(Key={"code": event["pathParameters"]["id"]})["Item"]["url"]
@@ -63,6 +67,7 @@ def shortener(event, context):
 
 
 def create(event, context):
+    """Create a short code"""
     db = connect()
     try:
         db.put_item(
@@ -80,6 +85,7 @@ def create(event, context):
 
 
 def view(event, context):
+    """View the entire DynamoDB table"""
     db = connect()
     if event["queryStringParameters"] is not None and event[
         "queryStringParameters"
@@ -96,6 +102,7 @@ def view(event, context):
 
 
 def delete(event, context):
+    """Delete a short code"""
     db = connect()
     try:
         db.delete_item(
@@ -113,10 +120,12 @@ def delete(event, context):
 
 
 def fallback(event, context):
+    """Redirect to a specified page if no record is found"""
     return redirect(os.environ.get("FALLBACK_URL"))
 
 
 def robots(event, context):
+    """Handle /robots.txt"""
     return {
         "statusCode": 200,
         "headers": {**{"Content-Type": "text/plain"}, **headers},
@@ -126,4 +135,5 @@ Disallow: /""",
 
 
 def favicon(event, context):
+    """Handle /favicon.ico"""
     return {"statusCode": 404, "headers": headers}
