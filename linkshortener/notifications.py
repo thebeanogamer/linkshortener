@@ -6,6 +6,7 @@ import boto3
 import jinja2
 from linkshortener.shortener import connect, headers
 from linkshortener.lambda_types import LambdaContext, LambdaDict
+from mypy_boto3 import ses
 
 
 def generate() -> str:
@@ -51,7 +52,7 @@ def summary(event: LambdaDict, context: LambdaContext) -> LambdaDict:
                 new = True
         if not new:
             raise Exception("No new uses")
-    client = boto3.client("ses", region_name=environ.get("SES_REGION"))
+    client: ses.Client = boto3.client("ses", region_name=environ.get("SES_REGION"))
     client.send_email(
         Destination={"ToAddresses": [environ.get("ADMIN_CONTACT", "")]},
         Message={
