@@ -5,9 +5,10 @@ from os import environ
 import boto3
 import jinja2
 from linkshortener.shortener import connect, headers
+from linkshortener.lambda_types import LambdaContext, LambdaDict
 
 
-def generate():
+def generate() -> str:
     """Generate the analytics page"""
     db = connect()
     page = (
@@ -31,7 +32,7 @@ def generate():
     return page
 
 
-def view(event, context):
+def view(event: LambdaDict, context: LambdaContext) -> LambdaDict:
     """View the analytics page in browser"""
     return {
         "statusCode": 200,
@@ -40,7 +41,7 @@ def view(event, context):
     }
 
 
-def summary(event, context):
+def summary(event: LambdaDict, context: LambdaContext) -> LambdaDict:
     """Send an email summary"""
     if event.get("httpMethod") is None:
         db = connect()
@@ -52,7 +53,7 @@ def summary(event, context):
             raise Exception("No new uses")
     client = boto3.client("ses", region_name=environ.get("SES_REGION"))
     client.send_email(
-        Destination={"ToAddresses": [environ.get("ADMIN_CONTACT")]},
+        Destination={"ToAddresses": [environ.get("ADMIN_CONTACT", "")]},
         Message={
             "Body": {
                 "Html": {"Charset": "UTF-8", "Data": generate()},

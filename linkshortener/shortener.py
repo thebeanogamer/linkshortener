@@ -6,6 +6,7 @@ import string
 import boto3
 import botocore
 from botocore.config import Config
+from linkshortener.lambda_types import LambdaContext, LambdaDict
 
 headers = {
     "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
@@ -38,17 +39,17 @@ class DecimalEncoder(json.JSONEncoder):
         return super(DecimalEncoder, self).default(o)
 
 
-def sanitize(url):
+def sanitize(url: str) -> str:
     """Sanitize URLs so they are compliant with RFC3986"""
     return "".join([i for i in url if i in string.ascii_letters + string.digits])
 
 
-def redirect(url):
+def redirect(url: str) -> LambdaDict:
     """Return a redirect to with the appropriate headers"""
     return {"statusCode": 302, "headers": {**{"Location": url}, **headers}}
 
 
-def shortener(event, context):
+def shortener(event: LambdaDict, context: LambdaContext) -> LambdaDict:
     """Query the database for a short code and return a redirect"""
     db = connect()
     try:
@@ -66,7 +67,7 @@ def shortener(event, context):
     return redirect(url)
 
 
-def create(event, context):
+def create(event: LambdaDict, context: LambdaContext) -> LambdaDict:
     """Create a short code"""
     db = connect()
     try:
@@ -84,7 +85,7 @@ def create(event, context):
     return {"statusCode": 200, "headers": headers}
 
 
-def view(event, context):
+def view(event: LambdaDict, context: LambdaContext) -> LambdaDict:
     """View the entire DynamoDB table"""
     db = connect()
     if event["queryStringParameters"] is not None and event[
@@ -101,7 +102,7 @@ def view(event, context):
     return {"statusCode": 200, "body": json.dumps(codes, cls=DecimalEncoder)}
 
 
-def delete(event, context):
+def delete(event: LambdaDict, context: LambdaContext) -> LambdaDict:
     """Delete a short code"""
     db = connect()
     try:
@@ -119,12 +120,12 @@ def delete(event, context):
     return {"statusCode": 200, "headers": headers}
 
 
-def fallback(event, context):
+def fallback(event: LambdaDict, context: LambdaContext) -> LambdaDict:
     """Redirect to a specified page if no record is found"""
-    return redirect(os.environ.get("FALLBACK_URL"))
+    return redirect(os.environ.get("FALLBACK_URL", ""))
 
 
-def robots(event, context):
+def robots(event: LambdaDict, context: LambdaContext) -> LambdaDict:
     """Handle /robots.txt"""
     return {
         "statusCode": 200,
@@ -134,6 +135,6 @@ Disallow: /""",
     }
 
 
-def favicon(event, context):
+def favicon(event: LambdaDict, context: LambdaContext) -> LambdaDict:
     """Handle /favicon.ico"""
     return {"statusCode": 404, "headers": headers}
