@@ -48,7 +48,7 @@ jobs:
     displayName: Run linter
 
   - script: python -m mypy linkshortener
-    displayName: Run linter
+    displayName: Run mypy
 
   - task: PublishTestResults@2
     condition: succeededOrFailed()
