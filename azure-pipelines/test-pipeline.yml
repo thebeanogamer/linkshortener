@@ -53,3 +53,8 @@ jobs:
       testResultsFiles: '**/flake8.xml'
       testRunTitle: Publish test results from flake8
 
+  - task: PublishTestResults@2
+    condition: succeededOrFailed()
+    inputs:
+      testResultsFiles: '**/mypy.xml'
+      testRunTitle: Publish test results from mypy
