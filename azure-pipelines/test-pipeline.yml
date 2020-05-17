@@ -47,9 +47,17 @@ jobs:
   - script: python -m flake8 .
     displayName: Run linter
 
+  - script: python -m mypy linkshortener
+    displayName: Run mypy
+
   - task: PublishTestResults@2
     condition: succeededOrFailed()
     inputs:
       testResultsFiles: '**/flake8.xml'
       testRunTitle: Publish test results from flake8
 
+  - task: PublishTestResults@2
+    condition: succeededOrFailed()
+    inputs:
+      testResultsFiles: '**/mypy.xml'
+      testRunTitle: Publish test results from mypy
