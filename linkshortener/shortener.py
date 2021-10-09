@@ -125,7 +125,7 @@ Disallow: /""",
     }
 
 def humans(event, context):
-        return {
+    return {
         "statusCode": 200,
         "headers": {**{"Content-Type": "text/plain"}, **headers},
         "body": "Daniel Milnes: github.com/thebeanogamer",
