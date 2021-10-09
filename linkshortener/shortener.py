@@ -125,5 +125,13 @@ Disallow: /""",
     }
 
 
+def humans(event, context):
+    return {
+        "statusCode": 200,
+        "headers": {**{"Content-Type": "text/plain"}, **headers},
+        "body": "Daniel Milnes: github.com/thebeanogamer",
+    }
+
+
 def favicon(event, context):
     return {"statusCode": 404, "headers": headers}

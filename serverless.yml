@@ -90,6 +90,12 @@ functions:
       - http:
           path: /robots.txt
           method: get
+  robots:
+    handler: linkshortener/shortener.humans
+    events:
+      - http:
+          path: /humans.txt
+          method: get
   favicon:
     handler: linkshortener/shortener.favicon
     events:
