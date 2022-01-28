@@ -17,7 +17,7 @@
     "serverless-domain-manager": "^4.2.2",
     "serverless-dynamodb-local": "^0.2.39",
     "serverless-ignore": "^0.2.1",
-    "serverless-offline": "^5.12.1",
+    "serverless-offline": "^8.4.0",
     "serverless-plugin-tracing": "^2.0.0",
     "serverless-pseudo-parameters": "^2.5.0",
     "serverless-python-requirements": "^5.1.1"
